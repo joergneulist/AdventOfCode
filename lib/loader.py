@@ -4,8 +4,6 @@ import requests
 
 
 def download(year, day, path):
-    url = f'https://adventofcode.com/{year}/day/{day}/input'
-
     with open(SESSION_FILE, 'r') as file:
         session = file.read().strip()
     cookies = {'session': session}
