@@ -12,6 +12,13 @@ class CharGrid:
 
     def __setitem__(self, coords, value):
         self.setc(coords, value)
+        
+    def copy(self):
+        return CharGrid([row for row in self.grid])
+        
+    def is_inside(self, coords):
+        x, y = coords
+        return x >= 0 and y >= 0 and y < self.shape[1] and x < self.shape[0]
 
     def walk(self):
         for y in range(self.shape[0]):
@@ -19,16 +26,14 @@ class CharGrid:
                 yield x, y
 
     def getc(self, coords):
-        if coords is not None:
+        if coords is not None and self.is_inside(coords):
             x, y = coords
-            if x >= 0 and y >= 0 and y < self.shape[1] and x < self.shape[0]:
-                return self.grid[y][x]
+            return self.grid[y][x]
 
     def setc(self, coords, new):
-        if coords is not None:
+        if coords is not None and self.is_inside(coords):
             x, y = coords
-            if x >= 0 and y >= 0 and y < self.shape[1] and x < self.shape[0]:
-                self.grid[y] = self.grid[y][:x] + new + self.grid[y][x+1:]
+            self.grid[y] = self.grid[y][:x] + new + self.grid[y][x+1:]
 
     def up(self, coords):
         x, y = coords
@@ -47,4 +52,5 @@ class CharGrid:
         return x + 1, y
 
     def neighbours(self, coords):
-        return self.up(coords), self.down(coords), self.left(coords), self.right(coords)
+        # Note the ordering: N, E, S, W, in terms of the compass
+        return self.up(coords), self.right(coords), self.down(coords), self.left(coords)
