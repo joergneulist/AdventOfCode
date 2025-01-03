@@ -21,9 +21,14 @@ class CharGrid:
         return x >= 0 and y >= 0 and y < self.shape[1] and x < self.shape[0]
 
     def walk(self):
-        for y in range(self.shape[0]):
-            for x in range(self.shape[1]):
+        for y in range(self.shape[1]):
+            for x in range(self.shape[0]):
                 yield x, y
+                
+    def find(self, char):
+        for pos in self.walk():
+            if self[pos] == char:
+                return pos
 
     def getc(self, coords):
         if coords is not None and self.is_inside(coords):
