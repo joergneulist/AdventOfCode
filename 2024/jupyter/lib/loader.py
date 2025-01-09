@@ -1,4 +1,4 @@
-from aoc.lib.constants import *
+from lib.constants import *
 import os.path
 import requests
 

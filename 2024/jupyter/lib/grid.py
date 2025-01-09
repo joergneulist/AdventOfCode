@@ -1,4 +1,3 @@
-
 class CharGrid:
     def __init__(self, grid):
         self.grid = grid
@@ -18,7 +17,7 @@ class CharGrid:
         
     def is_inside(self, coords):
         x, y = coords
-        return x >= 0 and y >= 0 and y < self.shape[1] and x < self.shape[0]
+        return x >= 0 and x < self.shape[0] and y >= 0 and y < self.shape[1]
 
     def walk(self):
         for y in range(self.shape[1]):
